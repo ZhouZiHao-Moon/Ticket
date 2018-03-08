@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" charset="UTF-8">
+    <style>
+    body {
+        font-size:20px;
+    }
+    </style>
+    <title>通中一中辩论友谊赛领票处</title>
+</head>
+<body>
+    <h1>第一届南通中学南通一中辩论友谊赛</h1>
+    <h2>领票处</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.name.label }} : {{ form.name() }} {{ form.errors.name }}</p>
+        <p>{{ form.number.label }} : {{ form.number() }} {{ form.errors.number }}</p>
+        <p>{{ form.qqmail.label }} : {{ form.qqmail() }} {{ form.errors.qqmail }}</p>
+        <p>{{ form.school.label }} :  {{ form.errors.school }}</p>
+        {% for choice in form.school %}
+        <tr>
+            <td>{{ choice }}</td>
+            <td>{{ choice.label }}</td>
+            <br />
+        </tr>
+        {% endfor %}
+        <p>{{ form.submit() }}</p>
+    </form>
+	<p style="color:blue">请填写真实信息以便核对</p>
+    <br />
+    <br />
+    <br />
+    <p><font size="1" color="gray">**2018南通中学极客共进交流社**</font></p>
+</body>
+</html>
