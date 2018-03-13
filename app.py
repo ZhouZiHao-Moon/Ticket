@@ -10,8 +10,8 @@ import smtplib
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'abgiueb2389406@#%^%DFWE'
 CSRFProtect(app)
-from_addr = 'zhouzihao2008@126.com'
-password = 'zhouzihao626078'
+from_addr = 'geekandcloud@126.com'
+password = 'gc669688582'
 smtp_server = 'smtp.126.com'
 fp = open('mailmsg.html', 'r', encoding='utf-8')
 text = fp.read()
@@ -30,19 +30,20 @@ def check(name, number, qqmail, school):
     workbook = open_workbook('number.xls')
     sheet = workbook.sheet_by_index(0)
     i = int(sheet.cell_value(0, 1))  # 通中
-    if i >= 150:
-        return 'fail', 3, ''
+    # if i >= 150:
+    #     return 'fail', 3, ''
     ii = int(sheet.cell_value(0, 2))  # 一中
-    if ii >= 150:
-        return 'fail', 3, ''
+    # if ii >= 150:
+    #    return 'fail', 3, ''
     iii = int(sheet.cell_value(0, 0))  # 总数
-    for x in range(1, i):
+    if iii >= 300:
+        return 'fail', 3, ''
+    for x in range(1, iii):
         if number == sheet.cell_value(x, 1):
-            if name == sheet.cell_value(x, 0).encode('utf-8') and qqmail == sheet.cell_value(x, 2).encode(
-                    'utf-8') and school == sheet.cell_value(x, 3).encode('utf-8'):
+            if name == sheet.cell_value(x, 0) and qqmail == sheet.cell_value(x, 2) and school == sheet.cell_value(x, 3):
                 return 'success', 2, sheet.cell_value(x,4)
             return 'fail', 1, ''
-        if qqmail == sheet.cell_value(x, 2).encode('utf-8'):
+        if qqmail == sheet.cell_value(x, 2):
             return 'fail', 2, ''
     newbook = copy(workbook)
     sheet1 = newbook.get_sheet(0)
@@ -91,7 +92,7 @@ def success(id):
     if id=='1':
         message='请打开邮箱查看入场券，如果没有收到可以查看一下垃圾箱'
     if id=='2':
-        message='通行证已经重新发到你的邮箱，请注意查收'
+        message='通行证已经重新发到你的邮箱，请注意查收，如果没有收到可以查看一下垃圾箱'
     return render_template('success.html',message=message)
 
 
