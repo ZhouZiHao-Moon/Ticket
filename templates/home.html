@@ -13,10 +13,10 @@
     <h2>领票处</h2>
     <form method="post">
         {{ form.hidden_tag() }}
-        <p>{{ form.name.label }} : {{ form.name() }} {{ form.errors.name }}</p>
-        <p>{{ form.number.label }} : {{ form.number() }} {{ form.errors.number }}</p>
-        <p>{{ form.qqmail.label }} : {{ form.qqmail() }} {{ form.errors.qqmail }}</p>
-        <p>{{ form.school.label }} :  {{ form.errors.school }}</p>
+        <p>{{ form.name.label }} : {{ form.name() }} <span style='color:red'>{{ form.errors.name }}</span></p>
+        <p>{{ form.number.label }} : {{ form.number() }} <span style='color:red'>{{ form.errors.number }}</span></p>
+        <p>{{ form.qqmail.label }} : {{ form.qqmail() }} <span style='color:red'>{{ form.errors.qqmail }}</span></p>
+        <p>{{ form.school.label }} :  <span style='color:red'>{{ form.errors.school }}</span></p>
         {% for choice in form.school %}
         <tr>
             <td>{{ choice }}</td>
