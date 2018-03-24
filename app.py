@@ -26,6 +26,11 @@ class MyFrom(FlaskForm):
     submit = SubmitField('提交')
 
 
+class SearchForm(FlaskForm):
+    num = IntegerField('输入查询的胸卡号',[validators.NumberRange(min=100000,max=999999,message='')])
+    submit = SubmitField('提交')
+
+
 def check(name, number, qqmail, school):
     workbook = open_workbook('number.xls')
     sheet = workbook.sheet_by_index(0)
@@ -105,6 +110,48 @@ def fail(id):
     if id=='3':
         message='该学校的入场券已申请完'
     return render_template('fail.html',message=message)
+
+
+@app.route('/show/',methods=['GET'])
+def show():
+    workbook = open_workbook('number.xls')
+    worksheet = workbook.sheet_by_index(0)
+    n = int(worksheet.cell_value(0, 0))
+    names = []
+    ids = []
+    mails = []
+    schools = []
+    nums = []
+    for i in range(1, n):
+        names.append(worksheet.cell_value(i, 0))
+        ids.append(int(worksheet.cell_value(i, 1)))
+        mails.append(worksheet.cell_value(i, 2))
+        schools.append(worksheet.cell_value(i, 3))
+        nums.append(int(worksheet.cell_value(i, 4)))
+    return render_template('show.html',names=names,ids=ids,mails=mails,schools=schools,nums=nums,i=n)
+
+
+@app.route('/search/',methods=['GET','POST'])
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        num = form.num.data
+        workbook = open_workbook('number.xls')
+        worksheet = workbook.sheet_by_index(0)
+        n = int(worksheet.cell_value(0, 0))
+        names = []
+        ids = []
+        schools = []
+        t = 0
+        for i in range(1, n):
+            x = worksheet.cell_value(i, 4)
+            if x == num:
+                names.append(worksheet.cell_value(i, 0))
+                ids.append(int(worksheet.cell_value(i, 1)))
+                schools.append(worksheet.cell_value(i, 3))
+                t = t + 1
+        return render_template("search.html",form=form,names=names,ids=ids,schools=schools,i=t)
+    return render_template('search.html',form=form,i=0)
 
 
 if __name__ == '__main__':

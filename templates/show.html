@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" charset="UTF-8">
+    <style>
+    body {
+        font-size:20px;
+    }
+    </style>
+    <title>已登记查询</title>
+</head>
+<body>
+ <table border='1' cellpadding='5'>
+ <tr>
+  <th>姓名</th>
+  <th>胸卡号</th>
+  <th>QQ邮箱</th>
+  <th>学校</th>
+  <th>入场码</th>
+ </tr>
+ {% for x in range(i-1) %}
+ <tr>
+  <td>{{ names[x] }}</td>
+  <td>{{ ids[x] }}</td>
+  <td>{{ mails[x] }}</td>
+  <td>{{ schools[x] }}</td>
+  <td>{{ nums[x] }}</td>
+ </tr>
+ {% endfor %}
+ </table>
+ <br />
+ <br />
+ <br />
+ <p><font size="2" color="gray">**2018南通中学极客共进交流社**</font></p>
+</body>
+</html>

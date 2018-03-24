@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no" charset="UTF-8">
+    <style>
+    body {
+        font-size:20px;
+    }
+    </style>
+    <title>辩论赛检票</title>
+</head>
+<body>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.num.label }}:{{ form.num() }}
+        {{ form.submit() }}
+    </form>
+    <p></p>
+    {% if i %}
+        <table border='1' cellpadding='3'>
+        <tr>
+            <th>姓名</th>
+            <th>胸卡号</th>
+            <th>学校</th>
+        </tr>
+        {% for x in range(i) %}
+            <tr>
+                <td>{{ names[x] }}</td>
+                <td>{{ ids[x] }}</td>
+                <td>{{ schools[x] }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <br />
+    <br />
+    <br />
+    <p><font size="2" color="gray">**2018南通中学极客共进交流社**</font></p>
+</body>
+</html>
